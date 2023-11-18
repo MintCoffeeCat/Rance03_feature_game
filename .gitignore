@@ -1,0 +1,19 @@
+# 忽略vscode配置项
+.vscode
+.vscode/*
+# 忽略日志
+Logs
+Logs/*
+# 忽略项目设置
+ProjectSettings
+ProjectSettings/*
+# 忽略用户设置
+UserSettings/
+# 忽略第三方包
+Library
+Library/*
+# 忽略其他
+Temp/
+# 忽略visual studio 解决方案
+*.sln
+
