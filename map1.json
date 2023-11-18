@@ -1,0 +1,55 @@
+{
+    "dungeon": [
+        {
+            "line": [
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                }
+            ],
+            "capability": 3
+        },
+        {
+            "line": [
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                }
+            ],
+            "capability": 3
+        },
+        {
+            "line": [
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                }
+            ],
+            "capability": 3
+        }
+    ]
+}

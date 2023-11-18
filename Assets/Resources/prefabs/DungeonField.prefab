@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3019150205080890197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3119600473116174102}
+  - component: {fileID: 120664708234400458}
+  m_Layer: 0
+  m_Name: DungeonField
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3119600473116174102
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019150205080890197}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.1061573, y: 0.11356229, z: -0.025884295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &120664708234400458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019150205080890197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef96b6291acb4438e3b0792da1074b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftSpaceScale: 0.2
+  rightSpaceScale: 0.2
+  upperSpaceScale: 0.2
+  bottomSpaceScale: 0.35
+  layerDistanceX: 0.18
+  layerDistanceY: 0.08
+  layerDistanceZ: 2
+  showBorder: 1
+  cachedWindowSize: {x: 0, y: 0}
+  dungeonSize: {x: 0, y: 0}
+  center: {x: 0, y: 0}
+  map:
+    dungeon: []
