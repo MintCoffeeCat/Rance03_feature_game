@@ -5,7 +5,7 @@ using UnityEngine;
 public class MonoGameSingleton : Singleton<MonoGameSingleton>
 {
     [SerializeField]
-    private Camera camera;
+    private Camera mainCamera;
 
     [SerializeField]
     public Calendar calendar;
@@ -18,7 +18,7 @@ public class MonoGameSingleton : Singleton<MonoGameSingleton>
     {
         base.Awake();
         this.calendar = new Calendar(30,7);
-        this.screenHelper = new ScreenHelper(this.camera);
+        this.screenHelper = new ScreenHelper(this.mainCamera);
     }
     public static ScreenHelper GetScreenHelper()
     {
@@ -38,5 +38,6 @@ public class MonoGameSingleton : Singleton<MonoGameSingleton>
     void Update()
     {
         this.screenHelper.Update();
+        this.screenHelper.DrawScreenArea(Color.green);
     }
 }

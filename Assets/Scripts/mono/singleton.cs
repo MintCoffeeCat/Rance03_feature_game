@@ -15,5 +15,4 @@ public class Singleton<T> : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this.gameObject);
     }
-
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -50,6 +51,11 @@ public class ScreenHelper
     {
         return this.ScreenToWorldDistance(new Vector2(w,h));
     }
+    public Vector2 ScreenSizeInWorld()
+    {
+        Vector2 s = this.ScreenToWorldDistance(this.width,this.height);
+        return s;
+    }
     public float ScaledScreenWidth(float scale)
     {
         return this.width * scale;
@@ -81,5 +87,22 @@ public class ScreenHelper
             this.height = Screen.height;
         }
         this.cameraZ = this.camera.transform.position.z;
+    }
+    public void DrawScreenArea(Color clr)
+    {
+        Vector2 center = this.ScreenToWorld(this.width/2,this.height/2);
+        Vector2 halfSize = this.ScreenSizeInWorld()/2;
+        List<Vector3> res = new()
+        {
+            new Vector3(center.x - halfSize.x, center.y - halfSize.y, this.GetSurfaceZ()),
+            new Vector3(center.x - halfSize.x, center.y + halfSize.y, this.GetSurfaceZ()),
+            new Vector3(center.x + halfSize.x, center.y - halfSize.y, this.GetSurfaceZ()),
+            new Vector3(center.x + halfSize.x, center.y + halfSize.y, this.GetSurfaceZ())
+        };
+        Debug.DrawLine(res[0], res[1], clr);
+        Debug.DrawLine(res[0], res[2], clr);
+        Debug.DrawLine(res[3], res[1], clr);
+        Debug.DrawLine(res[3], res[2], clr);
+
     }
 }

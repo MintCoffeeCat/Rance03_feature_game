@@ -74,9 +74,6 @@
         },
         {
             "m_Id": "adda1a14039f4235bb75598bcab99447"
-        },
-        {
-            "m_Id": "fbc8df6234d34e88a5b62d9c3f9dbe16"
         }
     ],
     "m_GroupDatas": [],
@@ -602,31 +599,6 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
-    "m_ObjectId": "3b29d4a4218448fba231edd61f132869",
-    "m_Id": 0,
-    "m_DisplayName": "Color",
-    "m_SlotType": 1,
-    "m_Hidden": false,
-    "m_ShaderOutputName": "Out",
-    "m_StageCapability": 3,
-    "m_Value": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_DefaultValue": {
-        "x": 0.0,
-        "y": 0.0,
-        "z": 0.0,
-        "w": 0.0
-    },
-    "m_Labels": []
 }
 
 {
@@ -1373,7 +1345,7 @@
     },
     "m_Name": "Combine",
     "m_DrawState": {
-        "m_Expanded": true,
+        "m_Expanded": false,
         "m_Position": {
             "serializedVersion": "2",
             "x": -735.9999389648438,
@@ -2041,42 +2013,6 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
-    }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
-    "m_ObjectId": "fbc8df6234d34e88a5b62d9c3f9dbe16",
-    "m_Group": {
-        "m_Id": ""
-    },
-    "m_Name": "Property",
-    "m_DrawState": {
-        "m_Expanded": true,
-        "m_Position": {
-            "serializedVersion": "2",
-            "x": -583.9999389648438,
-            "y": 1025.3333740234375,
-            "width": 106.66665649414063,
-            "height": 36.0
-        }
-    },
-    "m_Slots": [
-        {
-            "m_Id": "3b29d4a4218448fba231edd61f132869"
-        }
-    ],
-    "synonyms": [],
-    "m_Precision": 0,
-    "m_PreviewExpanded": true,
-    "m_DismissedVersion": 0,
-    "m_PreviewMode": 0,
-    "m_CustomColors": {
-        "m_SerializableColors": []
-    },
-    "m_Property": {
-        "m_Id": "5c3476be463f4f7685b2de26e125483d"
     }
 }
 

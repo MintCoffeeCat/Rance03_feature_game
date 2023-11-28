@@ -8,6 +8,24 @@
                 },
                 {
                     "type": 0,
+                    "length": 2
+                },
+                {
+                    "type": 0,
+                    "length": 1
+                }
+
+            ],
+            "capability": 4
+        },
+        {
+            "line": [
+                {
+                    "type": 0,
+                    "length": 2
+                },
+                {
+                    "type": 0,
                     "length": 1
                 },
                 {
@@ -15,7 +33,7 @@
                     "length": 1
                 }
             ],
-            "capability": 3
+            "capability": 4
         },
         {
             "line": [
@@ -29,27 +47,10 @@
                 },
                 {
                     "type": 0,
-                    "length": 1
+                    "length": 2
                 }
             ],
-            "capability": 3
-        },
-        {
-            "line": [
-                {
-                    "type": 0,
-                    "length": 1
-                },
-                {
-                    "type": 0,
-                    "length": 1
-                },
-                {
-                    "type": 0,
-                    "length": 1
-                }
-            ],
-            "capability": 3
+            "capability": 4
         }
     ]
 }
