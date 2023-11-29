@@ -18,6 +18,15 @@ public abstract class TextDecorator
         this.inner = inner;
         return inner;
     }
+    public Mesh ApplyInner(TMP_Text textMesh)
+    {
+        Mesh m;
+        if(inner != null)
+            m = inner.Render(textMesh);
+        else 
+            m = textMesh.mesh;
+        return m;
+    }
     public abstract Mesh Render(TMP_Text textMesh);
 }
 
@@ -33,7 +42,7 @@ class RainbowText: TextDecorator
 
     public override Mesh Render(TMP_Text textMesh)
     {
-        Mesh m = inner.Render(textMesh);
+        Mesh m = ApplyInner(textMesh);
         Vector3[] vertices = m.vertices;
         Color[] colors = m.colors;
         for (int i = 0; i < textMesh.textInfo.characterCount; i++)
@@ -51,11 +60,41 @@ class RainbowText: TextDecorator
     }
 }
 
+class WobbleText: TextDecorator
+{
+    public Vector2 wobbleDistance;
+    public WobbleText(){}
+    public WobbleText(TextDecorator inner)
+    {
+        this.inner = inner;
+    }
+
+    public override Mesh Render(TMP_Text textMesh)
+    {
+        Mesh m = ApplyInner(textMesh);
+        Vector3[] vertices = m.vertices;
+        for (int i = 0; i < textMesh.textInfo.characterCount; i++)
+        {
+            TMP_CharacterInfo c = textMesh.textInfo.characterInfo[i];
+            int index = c.vertexIndex;
+            Vector3 offset = this.Wobble(Time.time);
+            vertices[index] += offset; 
+        }
+        m.vertices = vertices;
+        return m;
+    }
+
+    private Vector2 Wobble(float time)
+    {
+        return new Vector2(Mathf.Sin(time*wobbleDistance.x),Mathf.Cos(time*wobbleDistance.y));
+    }
+}
 class ShakeText: TextDecorator
 {
-    
-    public float yShake;
-    public float xShake;
+    [Range(1,20)]
+    public float speed=1;
+    public int waveNum=1;
+    public Vector2 ShakeDistance;
     public ShakeText(){}
     public ShakeText(TextDecorator inner)
     {
@@ -64,22 +103,27 @@ class ShakeText: TextDecorator
 
     public override Mesh Render(TMP_Text textMesh)
     {
-        Mesh m = inner.Render(textMesh);
+        Mesh m = ApplyInner(textMesh);
         Vector3[] vertices = m.vertices;
+        float waveDistance = 2*waveNum*Mathf.PI/textMesh.textInfo.characterCount;
         for (int i = 0; i < textMesh.textInfo.characterCount; i++)
         {
             TMP_CharacterInfo c = textMesh.textInfo.characterInfo[i];
+            if(c.character == ' ')
+                continue;
             int index = c.vertexIndex;
-            // TODO: 文字摇晃的效果
-            Vector3 offset = this.Bias(Time.time);
-            vertices[index] += offset; 
+
+            vertices[index] += this.Shake(Time.time,i*waveDistance); 
+            vertices[index+1] += this.Shake(Time.time,i*waveDistance); 
+            vertices[index+2] += this.Shake(Time.time,i*waveDistance); 
+            vertices[index+3] += this.Shake(Time.time,i*waveDistance); 
         }
         m.vertices = vertices;
         return m;
     }
 
-    private Vector2 Bias(float time)
+    private Vector3 Shake(float time, float index)
     {
-        return new Vector2(this.xShake*Mathf.Sin(time),this.yShake*Mathf.Cos(time));
+        return new Vector2(this.ShakeDistance.x*Mathf.Sin((time+index)*this.speed), this.ShakeDistance.y*Mathf.Sin((time+index)*this.speed));
     }
 }

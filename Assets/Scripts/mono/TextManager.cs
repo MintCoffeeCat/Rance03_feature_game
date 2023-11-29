@@ -22,6 +22,9 @@ public class TextManager : MonoBehaviour
 
     private void Update() {
         this.textMesh.ForceMeshUpdate();
-        
+        if(decorator == null)
+            return;
+        Mesh newMesh = this.decorator.Render(this.textMesh);
+        this.textMesh.canvasRenderer.SetMesh(newMesh);
     }    
 }

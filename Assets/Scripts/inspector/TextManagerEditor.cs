@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,19 +13,37 @@ public class TextManagerEditor : Editor {
     public bool showDecorator = true;
     public int selectedOpt = 0;
 
-    public static Dictionary<string, Func<TextDecorator>> DECO = new(){
-        {"RainbowText", ()=> new RainbowText()},
-        {"ShakeText",()=>new ShakeText()}
-    };
-
     private void OnEnable() {
         this.decorators = serializedObject.FindProperty("decorator");
     }
+    /// <summary>
+    /// 动态获取一个基本类型下的所有子类
+    /// </summary>
+    /// <param name="baseType">基本类型</param>
+    /// <returns>返回一个可迭代的子类列表</returns>
+    private static IEnumerable GetClasses(Type baseType)
+    {
+        return Assembly.GetAssembly(baseType).GetTypes().Where(t => t.IsClass && !t.IsAbstract && baseType.IsAssignableFrom(t));
+    }
 
+    /// <summary>
+    /// 获取子类构造Map
+    /// </summary>
+    /// <returns></returns>
+    public static Dictionary<string, Func<TextDecorator>> DECO()
+    {
+        Dictionary<string, Func<TextDecorator>> deco = new();
+        foreach(Type tp in GetClasses(typeof(TextDecorator)))
+        {
+            deco.Add(tp.Name,()=>Activator.CreateInstance(tp) as TextDecorator);
+        }
+        return deco;
+    }
     public override void OnInspectorGUI() {
         serializedObject.Update();
         //获取构造器字典的键
-        string[] options = new List<string>(TextManagerEditor.DECO.Keys).ToArray();
+        var deco = TextManagerEditor.DECO();
+        string[] options = new List<string>(deco.Keys).ToArray();
         //横向布局启动！
         EditorGUILayout.BeginHorizontal();
         //创建一个下拉菜单，菜单内容为options,返回选中的index
@@ -30,7 +51,7 @@ public class TextManagerEditor : Editor {
         //创建一个添加按钮，将刚刚选中的类型实例化，并添加到list中去
         if(GUILayout.Button("Add"))
         {
-            TextDecorator newDeco = TextManagerEditor.DECO[options[selectedOpt]]();
+            TextDecorator newDeco = deco[options[selectedOpt]]();
             TextDecorator oriDeco = this.decorators.managedReferenceValue as TextDecorator;
             if(oriDeco == null)
             {
