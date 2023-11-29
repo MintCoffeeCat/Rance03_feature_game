@@ -8,7 +8,7 @@ using UnityEngine;
 public class TextManager : MonoBehaviour 
 {
     [SerializeReference]
-    public List<TextDecorator> decorator;
+    public TextDecorator decorator;
 
     public int test;
 
@@ -18,5 +18,10 @@ public class TextManager : MonoBehaviour
 
     private void Start() {
         this.textMesh = GetComponent<TMP_Text>();
+    }
+
+    private void Update() {
+        this.textMesh.ForceMeshUpdate();
+        
     }    
 }

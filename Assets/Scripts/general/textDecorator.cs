@@ -6,7 +6,8 @@ using System;
 [Serializable]
 public abstract class TextDecorator
 {
-    protected TextDecorator inner;
+    [SerializeReference]
+    public TextDecorator inner;
     public TextDecorator()
     {
         this.inner = null;
@@ -65,15 +66,20 @@ class ShakeText: TextDecorator
     {
         Mesh m = inner.Render(textMesh);
         Vector3[] vertices = m.vertices;
-        Color[] colors = m.colors;
         for (int i = 0; i < textMesh.textInfo.characterCount; i++)
         {
             TMP_CharacterInfo c = textMesh.textInfo.characterInfo[i];
             int index = c.vertexIndex;
             // TODO: 文字摇晃的效果
-
+            Vector3 offset = this.Bias(Time.time);
+            vertices[index] += offset; 
         }
         m.vertices = vertices;
         return m;
+    }
+
+    private Vector2 Bias(float time)
+    {
+        return new Vector2(this.xShake*Mathf.Sin(time),this.yShake*Mathf.Cos(time));
     }
 }
