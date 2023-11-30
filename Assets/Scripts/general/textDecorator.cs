@@ -2,12 +2,152 @@
 using UnityEngine;
 using TMPro;
 using System;
+using System.Collections.Generic;
+
+[Serializable]
+public class RenderIndexSet
+{
+    public int startIndex;
+    public int endIndex;
+
+    public RenderIndexSet()
+    {
+        this.startIndex = this.endIndex = 0;
+    }
+    public RenderIndexSet(int start, int end)
+    {
+        this.startIndex = start;
+        this.endIndex = end;
+    }
+    public RenderIndexSet(Vector2 vec)
+    {
+        this.startIndex = (int)vec.x;
+        this.endIndex = (int)vec.y;
+    }
+
+    public bool Contain(int value)
+    {
+        return this.startIndex <= value && value <= this.endIndex;
+    }
+    /// <summary>
+    /// 给定的indexSet的左端点是否包含在当前区间内
+    /// </summary>
+    /// <param name="indexSet"></param>
+    /// <returns></returns> <summary>
+    public bool ContainLeft(RenderIndexSet indexSet)
+    {
+        return this.startIndex <= indexSet.startIndex;
+    }
+    /// <summary>
+    /// 给定的indexSet的右端点是否包含在当前区间内
+    /// </summary>
+    /// <param name="indexSet"></param>
+    /// <returns></returns> <summary>
+    public bool ContainRight(RenderIndexSet indexSet)
+    {
+        return indexSet.endIndex <= this.endIndex;
+    }
+    public bool ContainFull(RenderIndexSet indexSet)
+    {
+        return this.ContainLeft(indexSet) && this.ContainRight(indexSet);
+    }
+}
+public class RenderIndexList 
+{
+    public List<RenderIndexSet> originalRenderIndexSets;
+    public List<RenderIndexSet> mergedRenderIndexSets;
+
+    public RenderIndexList()
+    {
+        this.originalRenderIndexSets = new();
+        this.mergedRenderIndexSets = new();
+    }
+    public RenderIndexList(List<RenderIndexSet> list)
+    {
+        this.originalRenderIndexSets = list;
+        this.mergedRenderIndexSets = new();
+        this.Merge();
+    }
+    public RenderIndexList(RenderIndexSet indexSet)
+    {
+        this.originalRenderIndexSets = new()
+        {
+            indexSet
+        };
+        this.mergedRenderIndexSets = new();
+        this.Merge();
+    }
+    public void Add(RenderIndexSet indexSet)
+    {
+        bool added = false;
+        foreach(RenderIndexSet _mergedSet in this.mergedRenderIndexSets)
+        {
+            //端点全在已有的index集合中，不做任何事情
+            if(_mergedSet.ContainFull(indexSet))
+                return;
+            //只要有一个端点在集合中，进行处理
+            if(_mergedSet.ContainLeft(indexSet) || _mergedSet.ContainRight(indexSet))
+            {
+                this.originalRenderIndexSets.Add(indexSet);
+                added = true;
+                break;
+            }
+
+        }
+        //左右两个端点都不在集合中的情况
+        if(!added)
+            this.originalRenderIndexSets.Add(indexSet);
+        this.Merge();
+    }
+    public void Merge()
+    {
+        if(this.originalRenderIndexSets.Count == 0)
+            return;
+
+        this.mergedRenderIndexSets.Clear();
+        this.originalRenderIndexSets.Sort((x,y)=>x.startIndex.CompareTo(y.startIndex));
+        int i=0;
+        RenderIndexSet mergedSet = new();
+        foreach(RenderIndexSet idxSet in this.originalRenderIndexSets)
+        {
+            if(i==0)
+            {
+                mergedSet = idxSet;
+                i++;
+                continue;
+            }
+            //当前原始区间的左端点包含在合并区间内，就把当前原始区间和合并区间合并
+            if (mergedSet.ContainLeft(idxSet))
+            {
+                mergedSet.endIndex = idxSet.endIndex;
+            }
+            //否则说明当前原始区间与合并区间不相连，开始新的合并区间
+            else
+            {
+                this.mergedRenderIndexSets.Add(mergedSet);
+                mergedSet = idxSet;
+            }
+        }
+        this.mergedRenderIndexSets.Add(mergedSet);
+    }
+    public bool Contain(int index)
+    {
+        foreach(RenderIndexSet idxSet in this.mergedRenderIndexSets)
+        {
+            if(idxSet.Contain(index))
+                return true;
+        }
+        return false;
+    }
+}
+
 
 [Serializable]
 public abstract class TextDecorator
 {
     [SerializeReference]
     public TextDecorator inner;
+    public RenderIndexList renderIndexList;
     public TextDecorator()
     {
         this.inner = null;
@@ -47,6 +187,10 @@ class RainbowText: TextDecorator
         Color[] colors = m.colors;
         for (int i = 0; i < textMesh.textInfo.characterCount; i++)
         {
+            //仅渲染在列表里的
+            if(!this.renderIndexList.Contain(i))
+                continue;
+
             TMP_CharacterInfo c = textMesh.textInfo.characterInfo[i];
             int index = c.vertexIndex;
 

@@ -10,8 +10,6 @@ public class TextManager : MonoBehaviour
     [SerializeReference]
     public TextDecorator decorator;
 
-    public int test;
-
     [SerializeField]
     [DisplayOnly]
     protected TMP_Text textMesh;
