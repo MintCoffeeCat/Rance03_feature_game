@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [Serializable]
 public class RenderIndexSet
@@ -52,9 +53,13 @@ public class RenderIndexSet
         return this.ContainLeft(indexSet) && this.ContainRight(indexSet);
     }
 }
+[Serializable]
 public class RenderIndexList 
 {
+    [DoNotSerialize]
     public List<RenderIndexSet> originalRenderIndexSets;
+    
+    [SerializeReference]
     public List<RenderIndexSet> mergedRenderIndexSets;
 
     public RenderIndexList()
@@ -147,15 +152,21 @@ public abstract class TextDecorator
 {
     [SerializeReference]
     public TextDecorator inner;
+
+    [SerializeReference]
     public RenderIndexList renderIndexList;
+
+    private bool root;
     public TextDecorator()
     {
         this.inner = null;
-        
+        this.root = true;
+        this.renderIndexList = new();
     }
     public TextDecorator SetInner(TextDecorator inner)
     {
         this.inner = inner;
+        inner.SetRoot(false);
         return inner;
     }
     public Mesh ApplyInner(TMP_Text textMesh)
@@ -166,6 +177,14 @@ public abstract class TextDecorator
         else 
             m = textMesh.mesh;
         return m;
+    }
+    public void SetRoot(bool b)
+    {
+        this.root = b;
+    }
+    public bool IsRoot()
+    {
+        return this.root;
     }
     public abstract Mesh Render(TMP_Text textMesh);
 }

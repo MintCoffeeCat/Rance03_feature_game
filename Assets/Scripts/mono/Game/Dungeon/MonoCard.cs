@@ -122,7 +122,6 @@ public class MonoCard: MonoBehaviour
         if(!this.initDone)
             return;
         this.UpdateShape();
-        // this.UpdatePosition();
     }
     private void OnDrawGizmos() {
         Gizmos.color = Color.red;
