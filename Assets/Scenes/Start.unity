@@ -123,6 +123,56 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &79917925
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79917927}
+  - component: {fileID: 79917926}
+  m_Layer: 0
+  m_Name: dialog
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79917926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79917925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a644c2024c421e4b8dc6f17e358eefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    units: []
+    currentUnit: 0
+  references:
+    version: 2
+    RefIds: []
+--- !u!4 &79917927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79917925}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 892.9949, y: 85.24335, z: 513.0014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &93823975
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,22 +535,110 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   decorator:
-    rid: 5199846238497275925
-  test: 0
+    rid: 8127658157171015686
   textMesh: {fileID: 0}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 5199846238497275925
-      type: {class: ShakeText, ns: , asm: Assembly-CSharp}
+    - rid: 8127658157171015680
+      type: {class: RainbowText, ns: , asm: Assembly-CSharp}
       data:
         inner:
           rid: -2
-        speed: 3.08
-        waveNum: 1
-        ShakeDistance: {x: 0, y: 5}
+        renderIndexList:
+          rid: 8127658157171015681
+        rainbow:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+    - rid: 8127658157171015681
+      type: {class: RenderIndexList, ns: , asm: Assembly-CSharp}
+      data:
+        originalRenderIndexSets: []
+        mergedRenderIndexSets: []
+    - rid: 8127658157171015682
+      type: {class: WobbleText, ns: , asm: Assembly-CSharp}
+      data:
+        inner:
+          rid: 8127658157171015680
+        renderIndexList:
+          rid: 8127658157171015684
+        wobbleDistance: {x: 0, y: 0}
+    - rid: 8127658157171015684
+      type: {class: RenderIndexList, ns: , asm: Assembly-CSharp}
+      data:
+        originalRenderIndexSets: []
+        mergedRenderIndexSets: []
+    - rid: 8127658157171015686
+      type: {class: RainbowText, ns: , asm: Assembly-CSharp}
+      data:
+        inner:
+          rid: 8127658157171015682
+        renderIndexList:
+          rid: 8127658157171015688
+        rainbow:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+    - rid: 8127658157171015688
+      type: {class: RenderIndexList, ns: , asm: Assembly-CSharp}
+      data:
+        originalRenderIndexSets: []
+        mergedRenderIndexSets: []
 --- !u!1 &386007582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,3 +1368,4 @@ SceneRoots:
   - {fileID: 1076808275}
   - {fileID: 93823978}
   - {fileID: 1055151986}
+  - {fileID: 79917927}
